@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Circuit: a Minecraft server that matched players by social fit | Austin Way</title>
+  <meta name="description" content="Case study. Circuit was a Minecraft server Austin Way founded to test social-cue matchmaking. It grew to 200,000 players; matched players were about a third more likely to return. The server is now shut down.">
+  <meta name="theme-color" content="#fbfbfc">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Circuit: a Minecraft server that matched players by social fit">
+  <meta property="og:description" content="A case study of a 200,000-player Minecraft server built to test whether matching on social fit, not just skill, keeps players coming back.">
+  <meta property="og:image" content="/media/explainer-poster.jpg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/fonts/source-serif-4-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/ibm-plex-sans-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/site.css">
+  <script src="/assets/js/site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="masthead">
+    <div class="masthead__inner">
+      <a class="wordmark" href="/" aria-label="Circuit case study, home">
+        <svg class="wordmark__mark" viewBox="0 0 16 16" aria-hidden="true">
+          <rect x="1" y="1" width="5" height="5"/>
+          <rect x="10" y="10" width="5" height="5"/>
+          <path d="M3.5 6v4.5H10" fill="none" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        <span>Circuit</span>
+      </a>
+      <nav class="toc" aria-label="Sections">
+        <ul>
+          <li><a href="#problem">Problem</a></li>
+          <li><a href="#experiment">Experiment</a></li>
+          <li><a href="#matchmaking">Matchmaking</a></li>
+          <li><a href="#results">Results</a></li>
+          <li><a href="#media">Media</a></li>
+          <li><a href="#lessons">Lessons</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <article>
+      <header class="hero">
+        <div class="hero__text">
+          <p class="hero__kicker">Case study by Austin Way</p>
+          <h1>Circuit: a Minecraft server that matched players by who they’d get along with</h1>
+          <p class="hero__dek">
+            Circuit was a live experiment in social-cue matchmaking. Instead of grouping players only by skill,
+            it tried to put people on teams they would actually want to play with again. The server grew to
+            200,000 players, and players matched this way were about a third more likely to come back.
+            It has since been shut down.
+          </p>
+
+          <dl class="facts">
+            <div>
+              <dt>Role</dt>
+              <dd>Founder; ran the server</dd>
+            </div>
+            <div>
+              <dt>Platform</dt>
+              <dd>Minecraft multiplayer server</dd>
+            </div>
+            <div>
+              <dt>Players</dt>
+              <dd>200,000</dd>
+            </div>
+            <div>
+              <dt>Status</dt>
+              <dd><span class="status-dot" aria-hidden="true"></span>Shut down. This page is the archive.</dd>
+            </div>
+          </dl>
+        </div>
+
+        <figure class="hero__figure">
+          <svg class="lobby-map" viewBox="0 0 480 400" role="img" aria-labelledby="lobby-title lobby-desc">
+            <title id="lobby-title">Illustration of players grouped by fit</title>
+            <desc id="lobby-desc">A top-down block grid with twelve player markers. Red wires connect them into three groups of four. Each group mixes players from different parts of the map rather than the nearest neighbours.</desc>
+            <defs>
+              <pattern id="grid" width="16" height="16" patternUnits="userSpaceOnUse">
+                <path d="M16 0H0V16" fill="none" class="lobby-map__gridline"/>
+              </pattern>
+              <g id="player">
+                <rect width="32" height="32"/>
+                <rect class="lobby-map__eye" x="7" y="11" width="6" height="6"/>
+                <rect class="lobby-map__eye" x="19" y="11" width="6" height="6"/>
+              </g>
+            </defs>
+            <rect width="480" height="400" fill="url(#grid)"/>
+
+            <g class="lobby-map__terrain">
+              <rect x="0" y="224" width="16" height="16"/><rect x="16" y="224" width="16" height="16"/><rect x="16" y="240" width="16" height="16"/>
+              <rect x="448" y="256" width="16" height="16"/><rect x="464" y="256" width="16" height="16"/><rect x="448" y="272" width="16" height="16"/>
+              <rect x="224" y="16" width="16" height="16"/><rect x="240" y="16" width="16" height="16"/>
+              <rect x="32" y="352" width="16" height="16"/><rect x="48" y="352" width="16" height="16"/><rect x="48" y="368" width="16" height="16"/>
+              <rect x="416" y="352" width="16" height="16"/>
+              <rect x="224" y="176" width="16" height="16"/><rect x="240" y="192" width="16" height="16"/>
+            </g>
+
+            <g class="lobby-map__wires">
+              <path d="M64 64H112V112M176 56H112M64 176H112V112M192 184H112V112"/>
+              <path d="M288 48H336V96M416 56H336M280 160H336V96M408 152H336V96"/>
+              <path d="M168 280H240V304M312 264H240M192 352H240V304M336 344H240V304"/>
+            </g>
+            <g class="lobby-map__hubs">
+              <rect x="106" y="106" width="12" height="12"/>
+              <rect x="330" y="90" width="12" height="12"/>
+              <rect x="234" y="298" width="12" height="12"/>
+            </g>
+
+            <g class="lobby-map__players">
+              <use href="#player" x="48" y="48" class="p1"/>
+              <use href="#player" x="160" y="40" class="p2"/>
+              <use href="#player" x="48" y="160" class="p3"/>
+              <use href="#player" x="176" y="168" class="p1"/>
+              <use href="#player" x="272" y="32" class="p3"/>
+              <use href="#player" x="400" y="40" class="p1"/>
+              <use href="#player" x="264" y="144" class="p2"/>
+              <use href="#player" x="392" y="136" class="p3"/>
+              <use href="#player" x="152" y="264" class="p2"/>
+              <use href="#player" x="296" y="248" class="p1"/>
+              <use href="#player" x="176" y="336" class="p3"/>
+              <use href="#player" x="320" y="328" class="p2"/>
+            </g>
+          </svg>
+          <figcaption>Illustration, not gameplay: twelve players wired into three teams by fit rather than by rating.</figcaption>
+        </figure>
+      </header>
+
+      <section class="chapter" id="problem" aria-labelledby="problem-title">
+        <div class="chapter__label">
+          <span class="chapter__num">01</span>
+          <span>The problem</span>
+        </div>
+        <div class="chapter__body prose">
+          <h2 id="problem-title">Matchmaking treats your teammates as interchangeable.</h2>
+          <p>
+            Most online games build teams with skill-based matchmaking: find players with a similar rating and
+            an acceptable ping, and get them into a game quickly. That produces fair matches. What it doesn’t
+            consider is whether you would want to play with those people again.
+          </p>
+          <p>
+            So games lean on rewards to keep people around: new items, unlocks, bigger drops. Reward loops wear
+            thin as players adapt to them, and each update has to be bigger than the last to feel the same.
+            Friendships behave differently. People come back to a game because the people they like are there,
+            long after the loot stops being exciting.
+          </p>
+          <blockquote class="thesis">
+            <p>If matchmaking optimized for social fit instead of only skill, would players come back more often?</p>
+            <footer>The question Circuit was built to test</footer>
+          </blockquote>
+        </div>
+      </section>
+
+      <section class="chapter" id="experiment" aria-labelledby="experiment-title">
+        <div class="chapter__label">
+          <span class="chapter__num">02</span>
+          <span>The experiment</span>
+        </div>
+        <div class="chapter__body prose">
+          <h2 id="experiment-title">A Minecraft server as the test bed.</h2>
+          <p>
+            Testing a matchmaking idea usually requires a studio’s player base. A Minecraft server removes that
+            barrier: whoever runs the server owns the whole loop, from the lobby to how players are grouped to
+            whether they come back the next day. The players are real, and so is their behavior, which is
+            more useful than asking people in a survey what they think they would do.
+          </p>
+          <p>
+            Austin founded and ran Circuit as that test bed. Players joined, the server placed them into groups
+            using social cues, and the outcome that mattered was simple to observe: did a player return?
+          </p>
+          <div class="scope">
+            <div>
+              <h3>What was tested</h3>
+              <p>Whether grouping players by social fit changes how often they come back.</p>
+            </div>
+            <div>
+              <h3>What was measured</h3>
+              <p>Return behavior of players placed by the social matchmaker.</p>
+            </div>
+            <div>
+              <h3>What it doesn’t claim</h3>
+              <p>Why players returned, or that the result holds in every game or genre.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="chapter" id="matchmaking" aria-labelledby="matchmaking-title">
+        <div class="chapter__label">
+          <span class="chapter__num">03</span>
+          <span>How matchmaking worked</span>
+        </div>
+        <div class="chapter__body">
+          <div class="prose">
+            <h2 id="matchmaking-title">Same players, a different question.</h2>
+            <p>
+              A conventional matchmaker asks whether a group of players is evenly matched. Circuit asked
+              whether a group would get along. Skill still mattered, since a hopeless match isn’t fun for anyone,
+              but it stopped being the only thing the matchmaker optimized for.
+            </p>
+          </div>
+
+          <div class="compare" role="region" aria-label="Comparison of matchmaking approaches" tabindex="0">
+            <table>
+              <caption class="visually-hidden">Skill-based matchmaking compared with Circuit’s social-cue matchmaking</caption>
+              <thead>
+                <tr>
+                  <th scope="col"><span class="visually-hidden">Aspect</span></th>
+                  <th scope="col">Skill-based matchmaking</th>
+                  <th scope="col" class="compare__circuit">Circuit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">The question</th>
+                  <td data-label="Skill-based">Are these players evenly matched?</td>
+                  <td class="compare__circuit" data-label="Circuit">Will these players get along?</td>
+                </tr>
+                <tr>
+                  <th scope="row">What it weighs</th>
+                  <td data-label="Skill-based">Rating, connection quality, time in queue</td>
+                  <td class="compare__circuit" data-label="Circuit">Social cues about how someone plays with other people, alongside skill</td>
+                </tr>
+                <tr>
+                  <th scope="row">Between sessions</th>
+                  <td data-label="Skill-based">A new set of strangers each game</td>
+                  <td class="compare__circuit" data-label="Circuit">Groups that worked are brought back together</td>
+                </tr>
+                <tr>
+                  <th scope="row">Success looks like</th>
+                  <td data-label="Skill-based">A close game</td>
+                  <td class="compare__circuit" data-label="Circuit">A player who comes back</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="subhead">Three design principles</h3>
+          <ol class="principles">
+            <li>
+              <h4>Fast first, then fit.</h4>
+              <p>
+                A new player needs a game right away, so early matches favor speed. As a player returns, the
+                matchmaker can afford to care less about queue time and more about who they’re grouped with.
+              </p>
+              <div class="shift" aria-hidden="true">
+                <span class="shift__bar"></span>
+                <span class="shift__labels"><span>First session: speed and skill</span><span>Returning player: social fit</span></span>
+              </div>
+            </li>
+            <li>
+              <h4>Keep good groups together.</h4>
+              <p>
+                Familiarity builds friendship. When a group plays well together, putting the same people back in
+                a game is worth more than finding a marginally better-balanced lobby of strangers.
+              </p>
+            </li>
+            <li>
+              <h4>Shared struggle beats perfect balance.</h4>
+              <p>
+                Easy wins are forgettable. Teams bond when they have to work together to get through something
+                hard, so a good match isn’t always a perfectly fair one.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="chapter" id="results" aria-labelledby="results-title">
+        <div class="chapter__label">
+          <span class="chapter__num">04</span>
+          <span>Results</span>
+        </div>
+        <div class="chapter__body">
+          <h2 id="results-title" class="prose-heading">The thesis held up with real players.</h2>
+          <div class="figures">
+            <div class="figure-stat">
+              <p class="figure-stat__value">200,000</p>
+              <p class="figure-stat__label">players on the server</p>
+            </div>
+            <div class="figure-stat figure-stat--accent">
+              <p class="figure-stat__value"><span class="figure-stat__approx">about</span> <span class="figure-stat__frac">⅓</span></p>
+              <p class="figure-stat__label">more likely to return when matched by social fit</p>
+            </div>
+            <div class="figure-stat">
+              <p class="figure-stat__value figure-stat__value--word">Shut down</p>
+              <p class="figure-stat__label">the server is no longer running</p>
+            </div>
+          </div>
+          <div class="prose">
+            <p>
+              Circuit grew to 200,000 players, enough to see the idea work outside a slide deck. Players placed by the social matchmaker were roughly one-third more likely
+              to come back.
+            </p>
+            <p class="note">
+              <strong>How to read this.</strong> The return-rate figure comes from the server’s own player data.
+              It isn’t a peer-reviewed study, and it’s one metric: it shows that matched players came back more,
+              not exactly why. No other figures are reported here.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="chapter chapter--dark" id="media" aria-labelledby="media-title">
+        <div class="chapter__label">
+          <span class="chapter__num">05</span>
+          <span>Media</span>
+        </div>
+        <div class="chapter__body">
+          <h2 id="media-title" class="prose-heading">Footage and background.</h2>
+
+          <figure class="feature-video">
+            <video controls preload="none" playsinline poster="/media/explainer-poster.jpg" width="1280" height="720">
+              <source src="/media/circuit-explainer.mp4" type="video/mp4">
+              <track kind="captions" src="/media/circuit-explainer.en.vtt" srclang="en" label="English" default>
+              <a href="/media/circuit-explainer.mp4">Download the explainer video (MP4)</a>
+            </video>
+            <figcaption>
+              <span class="feature-video__title">Why we quit games we love</span>
+              An explainer on the retention theory behind Circuit: reward loops, social loops, and the matchmaking
+              principles above. 7 min 38 s, captioned. The narration and slides are AI-generated and cover the
+              theory; they are not server footage.
+            </figcaption>
+          </figure>
+
+          <div class="clips" data-clips-src="/media/clips.json" hidden>
+            <h3 class="subhead">From the server</h3>
+            <ul class="clips__grid"></ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="chapter" id="lessons" aria-labelledby="lessons-title">
+        <div class="chapter__label">
+          <span class="chapter__num">06</span>
+          <span>Lessons and status</span>
+        </div>
+        <div class="chapter__body">
+          <div class="prose">
+            <h2 id="lessons-title">What the project showed.</h2>
+          </div>
+          <ol class="lessons">
+            <li>
+              <h3>Social fit is its own retention lever.</h3>
+              <p>Skill balance and social fit are different variables. Optimizing only for the first leaves the second to chance.</p>
+            </li>
+            <li>
+              <h3>The first match and the tenth need different goals.</h3>
+              <p>New players need a game now. Returning players can wait a little longer for a better group.</p>
+            </li>
+            <li>
+              <h3>Fair isn’t the same as good.</h3>
+              <p>A perfectly balanced lobby of strangers is easy to forget. A team that got through something hard together is not.</p>
+            </li>
+            <li>
+              <h3>A live test beats a hypothetical.</h3>
+              <p>Running a real server turned an opinion about matchmaking into behavior that could be observed.</p>
+            </li>
+          </ol>
+
+          <div class="prose">
+            <h3 class="subhead">Why it matters</h3>
+            <p>
+              Games spend heavily on new content to keep players around, and content runs out. A community
+              doesn’t: the people you play with are content that keeps renewing itself. If matchmaking can
+              help form those communities on purpose, retention stops depending on a bigger update each season.
+              The same idea reaches beyond games: in the Rat Park experiments of the late 1970s, rats given
+              company and space to play took far less morphine than rats kept alone.
+            </p>
+            <p>
+              It also raises a harder question that Circuit leaves open: if a system can choose your teammates
+              well, how much of your social circle should it choose?
+            </p>
+          </div>
+
+          <aside class="status" aria-labelledby="status-title">
+            <h3 id="status-title">Current status</h3>
+            <p>
+              Circuit is shut down. There is no server to join, no signup and no product. This site is a
+              research archive documenting the experiment and what it found.
+            </p>
+          </aside>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <p>Circuit, a project by Austin Way. Shut down; archived here as a case study.</p>
+      <p><a href="https://github.com/AustinAWay">Austin Way on GitHub</a></p>
+    </div>
+  </footer>
+</body>
+</html>
