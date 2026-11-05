@@ -88,14 +88,16 @@
       var media = embedFor(clip);
       if (!media) return;
 
-      var item = el("li");
+      var item = el("li", clip.feature ? { class: "clips__item--feature" } : {});
       var figure = el("figure");
       var frame = el("div", { class: "clips__frame" });
       frame.appendChild(media);
       figure.appendChild(frame);
 
       var caption = el("figcaption");
-      caption.appendChild(el("span", { class: "clips__title" }, clip.title));
+      var heading = el("span", { class: "clips__title" }, clip.title);
+      if (clip.duration) heading.appendChild(el("span", { class: "clips__duration" }, clip.duration));
+      caption.appendChild(heading);
       if (clip.caption) caption.appendChild(document.createTextNode(clip.caption));
       figure.appendChild(caption);
 
@@ -121,6 +123,40 @@
       .catch(function () {});
   }
 
+  function setupReel() {
+    var video = document.querySelector(".reel__video");
+    var toggle = document.querySelector(".reel__toggle");
+    if (!video || !toggle) return;
+
+    var label = toggle.querySelector(".reel__toggle-label");
+    var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    function sync() {
+      var playing = !video.paused;
+      toggle.setAttribute("aria-pressed", playing ? "true" : "false");
+      label.textContent = playing ? "Pause footage" : "Play footage";
+    }
+
+    toggle.addEventListener("click", function () {
+      if (video.paused) {
+        var attempt = video.play();
+        if (attempt && attempt.catch) attempt.catch(function () {});
+      } else {
+        video.pause();
+      }
+    });
+    video.addEventListener("play", sync);
+    video.addEventListener("pause", sync);
+    toggle.hidden = false;
+
+    if (!reduceMotion) {
+      var start = video.play();
+      if (start && start.catch) start.catch(sync);
+    }
+    sync();
+  }
+
   highlightCurrentSection();
+  setupReel();
   loadClips();
 })();

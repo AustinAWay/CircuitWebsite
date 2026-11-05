@@ -25,19 +25,21 @@ public/
   index.html                 the case study
   404.html
   assets/css/site.css        all styles
-  assets/js/site.js          section highlighting and the clip gallery
+  assets/js/site.js          section highlighting, hero reel controls, clip gallery
   assets/fonts/              self-hosted Source Serif 4 and IBM Plex (OFL)
   media/
-    circuit-explainer.mp4    AI-generated explainer, re-encoded for the web
+    hero-reel.mp4/.jpg       muted 17 s montage of server footage for the hero
+    clips/                   server clips (720p H.264) with poster frames
+    clips.json               gallery entries for the Footage section
+    circuit-explainer.mp4    AI-generated explainer (secondary, labelled), re-encoded for the web
     circuit-explainer.en.vtt captions
     explainer-poster.jpg
-    clips.json               server footage shown in the Media section
 ```
 
 ## Adding server footage
 
-The "From the server" gallery in the Media section stays hidden until `public/media/clips.json` has
-entries. Each clip needs a `title` and one source:
+The "From the server" gallery in the Footage section renders every entry in `public/media/clips.json`
+(it stays hidden if the list is empty). Each clip needs a `title` and one source:
 
 ```json
 {
@@ -56,7 +58,14 @@ entries. Each clip needs a `title` and one source:
 ```
 
 - `type: "file"` takes an HTTPS URL or a path under `public/`. Optional: `poster`, `captions` (a `.vtt` URL),
-  and `mime` (defaults to `video/mp4`).
+  `mime` (defaults to `video/mp4`), `duration` (display text such as `"0:20"`) and `feature: true` (full width).
 - `type: "youtube"` and `type: "vimeo"` take the video ID. YouTube embeds use `youtube-nocookie.com`.
 
-Keep large files off git where possible. Host them on a CDN or video platform and reference the URL.
+Keep in-repo clips small. The committed clips were re-encoded with:
+
+```bash
+ffmpeg -i in.mp4 -vf scale=1280:-2 -c:v libx264 -preset slow -crf 27 -pix_fmt yuv420p \
+  -c:a aac -b:a 96k -movflags +faststart public/media/clips/name.mp4
+```
+
+Long recordings (the trailer, full demo) belong on a CDN or video platform; reference them by URL.

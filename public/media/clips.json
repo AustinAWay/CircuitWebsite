@@ -1,3 +1,85 @@
 {
-  "clips": []
+  "clips": [
+    {
+      "title": "Random Kits",
+      "caption": "A twelve-player round with three lives each. Kills, falls and lava deaths scroll through chat as the arena empties out.",
+      "duration": "0:20",
+      "feature": true,
+      "type": "file",
+      "src": "/media/clips/random-kits.mp4",
+      "poster": "/media/clips/random-kits.jpg"
+    },
+    {
+      "title": "Voting menu",
+      "caption": "Picking the next game. Each option shows its average rating, your own rating and how many players have voted for it.",
+      "duration": "0:09",
+      "type": "file",
+      "src": "/media/clips/voting-menu.mp4",
+      "poster": "/media/clips/voting-menu.jpg"
+    },
+    {
+      "title": "Powers of Fortune",
+      "caption": "Everyone gets a new power every 20 seconds, such as Snowball Fighter or Super Jump. The last player alive wins.",
+      "duration": "0:28",
+      "type": "file",
+      "src": "/media/clips/powers-of-fortune.mp4",
+      "poster": "/media/clips/powers-of-fortune.jpg"
+    },
+    {
+      "title": "Beat the Boss",
+      "caption": "A fight against the Corrupted Evoker, a custom multi-stage boss that summons toxic clouds and waves of fangs.",
+      "duration": "0:15",
+      "type": "file",
+      "src": "/media/clips/beat-the-boss.mp4",
+      "poster": "/media/clips/beat-the-boss.jpg"
+    },
+    {
+      "title": "Pet system",
+      "caption": "The pet menu: choose a pet, open its settings, and spend coins to upgrade stats such as health.",
+      "duration": "0:36",
+      "type": "file",
+      "src": "/media/clips/pet-system.mp4",
+      "poster": "/media/clips/pet-system.jpg"
+    },
+    {
+      "title": "Hatching a pet",
+      "caption": "A legendary camel hatches with a +44% gold boost. Recorded January 2025.",
+      "duration": "0:17",
+      "type": "file",
+      "src": "/media/clips/pet-hatch-jan14.mp4",
+      "poster": "/media/clips/pet-hatch-jan14.jpg"
+    },
+    {
+      "title": "Pillar of Chaos",
+      "caption": "Pillars of random blocks rising out of the arena floor at the start of a round.",
+      "duration": "0:04",
+      "type": "file",
+      "src": "/media/clips/pillar-of-chaos.mp4",
+      "poster": "/media/clips/pillar-of-chaos.jpg"
+    },
+    {
+      "title": "Spawn and map builds",
+      "caption": "A flythrough of the hand-built spawn, castle and arenas.",
+      "duration": "0:09",
+      "type": "file",
+      "src": "/media/clips/lobby-builds.mp4",
+      "poster": "/media/clips/lobby-builds.jpg"
+    },
+    {
+      "title": "Audio and proximity voice chat",
+      "caption": "Circuit's browser audio client carried in-game music and proximity voice chat for players within 45 blocks. Recorded January 2025.",
+      "duration": "0:20",
+      "type": "file",
+      "src": "/media/clips/voice-chat-jan24.mp4",
+      "poster": "/media/clips/voice-chat-jan24.jpg"
+    },
+    {
+      "title": "Circuit promo",
+      "caption": "An early promotional cut for the server, showing Random Kits, Team Platform and the map lineup.",
+      "duration": "0:19",
+      "type": "file",
+      "src": "/media/clips/circuit-ad.mp4",
+      "poster": "/media/clips/circuit-ad.jpg"
+    }
+  ]
 }

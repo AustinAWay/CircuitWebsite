@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Circuit: a Minecraft server that matched players by social fit | Austin Way</title>
-  <meta name="description" content="Case study. Circuit was a Minecraft server Austin Way founded to test social-cue matchmaking. It grew to 200,000 players; matched players were about a third more likely to return. The server is now shut down.">
+  <meta name="description" content="Case study. Circuit (Mine Circuit) was a Minecraft minigame server Austin Way founded to test social-cue matchmaking. It shipped 20 custom minigames and reached 200,000 players before shutting down.">
   <meta name="theme-color" content="#fbfbfc">
   <meta property="og:type" content="article">
   <meta property="og:title" content="Circuit: a Minecraft server that matched players by social fit">
-  <meta property="og:description" content="A case study of a 200,000-player Minecraft server built to test whether matching on social fit, not just skill, keeps players coming back.">
-  <meta property="og:image" content="/media/explainer-poster.jpg">
+  <meta property="og:description" content="How a Minecraft minigame server grew from zero to 200,000 players while testing whether matching on social fit, not just skill, keeps players coming back.">
+  <meta property="og:image" content="/media/hero-reel.jpg">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="/assets/fonts/source-serif-4-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/ibm-plex-sans-variable.woff2" as="font" type="font/woff2" crossorigin>
@@ -31,11 +31,12 @@
       </a>
       <nav class="toc" aria-label="Sections">
         <ul>
-          <li><a href="#problem">Problem</a></li>
-          <li><a href="#experiment">Experiment</a></li>
+          <li><a href="#idea">Idea</a></li>
+          <li><a href="#product">Product</a></li>
+          <li><a href="#footage">Footage</a></li>
           <li><a href="#matchmaking">Matchmaking</a></li>
+          <li><a href="#growth">Growth</a></li>
           <li><a href="#results">Results</a></li>
-          <li><a href="#media">Media</a></li>
           <li><a href="#lessons">Lessons</a></li>
         </ul>
       </nav>
@@ -45,162 +46,216 @@
   <main id="main">
     <article>
       <header class="hero">
-        <div class="hero__text">
+        <div class="hero__title">
           <p class="hero__kicker">Case study by Austin Way</p>
           <h1>Circuit: a Minecraft server that matched players by who they’d get along with</h1>
-          <p class="hero__dek">
-            Circuit was a live experiment in social-cue matchmaking. Instead of grouping players only by skill,
-            it tried to put people on teams they would actually want to play with again. The server grew to
-            200,000 players, and players matched this way were about a third more likely to come back.
-            It has since been shut down.
-          </p>
-
-          <dl class="facts">
-            <div>
-              <dt>Role</dt>
-              <dd>Founder; ran the server</dd>
-            </div>
-            <div>
-              <dt>Platform</dt>
-              <dd>Minecraft multiplayer server</dd>
-            </div>
-            <div>
-              <dt>Players</dt>
-              <dd>200,000</dd>
-            </div>
-            <div>
-              <dt>Status</dt>
-              <dd><span class="status-dot" aria-hidden="true"></span>Shut down. This page is the archive.</dd>
-            </div>
-          </dl>
         </div>
 
-        <figure class="hero__figure">
-          <svg class="lobby-map" viewBox="0 0 480 400" role="img" aria-labelledby="lobby-title lobby-desc">
-            <title id="lobby-title">Illustration of players grouped by fit</title>
-            <desc id="lobby-desc">A top-down block grid with twelve player markers. Red wires connect them into three groups of four. Each group mixes players from different parts of the map rather than the nearest neighbours.</desc>
-            <defs>
-              <pattern id="grid" width="16" height="16" patternUnits="userSpaceOnUse">
-                <path d="M16 0H0V16" fill="none" class="lobby-map__gridline"/>
-              </pattern>
-              <g id="player">
-                <rect width="32" height="32"/>
-                <rect class="lobby-map__eye" x="7" y="11" width="6" height="6"/>
-                <rect class="lobby-map__eye" x="19" y="11" width="6" height="6"/>
-              </g>
-            </defs>
-            <rect width="480" height="400" fill="url(#grid)"/>
+        <p class="hero__dek">
+          Austin founded Circuit, also called Mine Circuit, as a Minecraft minigame server with one question
+          behind it: if matchmaking put you with people you’d actually get along with, instead of only people
+          at your skill level, would you keep coming back? The server started from zero players on Minehut,
+          shipped 20 custom minigames, and reached 200,000 players before it was shut down.
+        </p>
 
-            <g class="lobby-map__terrain">
-              <rect x="0" y="224" width="16" height="16"/><rect x="16" y="224" width="16" height="16"/><rect x="16" y="240" width="16" height="16"/>
-              <rect x="448" y="256" width="16" height="16"/><rect x="464" y="256" width="16" height="16"/><rect x="448" y="272" width="16" height="16"/>
-              <rect x="224" y="16" width="16" height="16"/><rect x="240" y="16" width="16" height="16"/>
-              <rect x="32" y="352" width="16" height="16"/><rect x="48" y="352" width="16" height="16"/><rect x="48" y="368" width="16" height="16"/>
-              <rect x="416" y="352" width="16" height="16"/>
-              <rect x="224" y="176" width="16" height="16"/><rect x="240" y="192" width="16" height="16"/>
-            </g>
-
-            <g class="lobby-map__wires">
-              <path d="M64 64H112V112M176 56H112M64 176H112V112M192 184H112V112"/>
-              <path d="M288 48H336V96M416 56H336M280 160H336V96M408 152H336V96"/>
-              <path d="M168 280H240V304M312 264H240M192 352H240V304M336 344H240V304"/>
-            </g>
-            <g class="lobby-map__hubs">
-              <rect x="106" y="106" width="12" height="12"/>
-              <rect x="330" y="90" width="12" height="12"/>
-              <rect x="234" y="298" width="12" height="12"/>
-            </g>
-
-            <g class="lobby-map__players">
-              <use href="#player" x="48" y="48" class="p1"/>
-              <use href="#player" x="160" y="40" class="p2"/>
-              <use href="#player" x="48" y="160" class="p3"/>
-              <use href="#player" x="176" y="168" class="p1"/>
-              <use href="#player" x="272" y="32" class="p3"/>
-              <use href="#player" x="400" y="40" class="p1"/>
-              <use href="#player" x="264" y="144" class="p2"/>
-              <use href="#player" x="392" y="136" class="p3"/>
-              <use href="#player" x="152" y="264" class="p2"/>
-              <use href="#player" x="296" y="248" class="p1"/>
-              <use href="#player" x="176" y="336" class="p3"/>
-              <use href="#player" x="320" y="328" class="p2"/>
-            </g>
-          </svg>
-          <figcaption>Illustration, not gameplay: twelve players wired into three teams by fit rather than by rating.</figcaption>
+        <figure class="hero__media">
+          <div class="reel">
+            <video class="reel__video" muted loop playsinline preload="metadata" poster="/media/hero-reel.jpg" width="1280" height="720" aria-describedby="reel-caption">
+              <source src="/media/hero-reel.mp4" type="video/mp4">
+            </video>
+            <button class="reel__toggle" type="button" aria-pressed="false" hidden>
+              <span class="reel__toggle-label">Play footage</span>
+            </button>
+          </div>
+          <figcaption id="reel-caption">
+            Footage from the Circuit server: the spawn builds, the voting menu, Powers of Fortune, Random Kits,
+            a boss fight, a pet hatch and Pillar of Chaos.
+          </figcaption>
         </figure>
+
+        <dl class="facts">
+          <div>
+            <dt>Role</dt>
+            <dd>Founder; built and ran the server</dd>
+          </div>
+          <div>
+            <dt>Platform</dt>
+            <dd>Minecraft minigame server, started on Minehut</dd>
+          </div>
+          <div>
+            <dt>Players</dt>
+            <dd>200,000</dd>
+          </div>
+          <div>
+            <dt>Built</dt>
+            <dd>20 custom minigames, about 20,000 lines of code</dd>
+          </div>
+          <div class="facts__wide">
+            <dt>Status</dt>
+            <dd><span class="status-dot" aria-hidden="true"></span>Shut down. This page is the archive.</dd>
+          </div>
+        </dl>
       </header>
 
-      <section class="chapter" id="problem" aria-labelledby="problem-title">
+      <section class="chapter" id="idea" aria-labelledby="idea-title">
         <div class="chapter__label">
           <span class="chapter__num">01</span>
-          <span>The problem</span>
+          <span>The idea</span>
         </div>
         <div class="chapter__body prose">
-          <h2 id="problem-title">Matchmaking treats your teammates as interchangeable.</h2>
+          <h2 id="idea-title">Games keep players with loot. Circuit bet on friends.</h2>
           <p>
             Most online games build teams with skill-based matchmaking: find players with a similar rating and
-            an acceptable ping, and get them into a game quickly. That produces fair matches. What it doesn’t
-            consider is whether you would want to play with those people again.
+            a good connection, and get them into a game quickly. That makes fair matches, but it treats your
+            teammates as interchangeable. Nobody asks whether you’d want to play with those people again.
           </p>
           <p>
-            So games lean on rewards to keep people around: new items, unlocks, bigger drops. Reward loops wear
-            thin as players adapt to them, and each update has to be bigger than the last to feel the same.
-            Friendships behave differently. People come back to a game because the people they like are there,
-            long after the loot stops being exciting.
+            To keep players around, games lean on rewards: points, loot boxes, achievements. Reward loops wear
+            thin as players get used to them, and every update has to be bigger than the last to feel the same.
+            Austin’s argument was that games should shift weight from rewards to relationships, collaboration
+            and community, because people come back for their friends long after the loot stops being exciting.
           </p>
           <blockquote class="thesis">
             <p>If matchmaking optimized for social fit instead of only skill, would players come back more often?</p>
             <footer>The question Circuit was built to test</footer>
           </blockquote>
+          <p>
+            Testing that inside an existing game requires a studio’s player base. A Minecraft server removes the
+            barrier: whoever runs the server owns the whole loop, from the lobby to who plays with whom to
+            whether players come back the next day. So instead of a survey or a prototype, Austin built a server
+            and opened it to real players.
+          </p>
         </div>
       </section>
 
-      <section class="chapter" id="experiment" aria-labelledby="experiment-title">
+      <section class="chapter" id="product" aria-labelledby="product-title">
         <div class="chapter__label">
           <span class="chapter__num">02</span>
-          <span>The experiment</span>
+          <span>What Circuit was</span>
         </div>
-        <div class="chapter__body prose">
-          <h2 id="experiment-title">A Minecraft server as the test bed.</h2>
-          <p>
-            Testing a matchmaking idea usually requires a studio’s player base. A Minecraft server removes that
-            barrier: whoever runs the server owns the whole loop, from the lobby to how players are grouped to
-            whether they come back the next day. The players are real, and so is their behavior, which is
-            more useful than asking people in a survey what they think they would do.
-          </p>
-          <p>
-            Austin founded and ran Circuit as that test bed. Players joined, the server placed them into groups
-            using social cues, and the outcome that mattered was simple to observe: did a player return?
-          </p>
-          <div class="scope">
-            <div>
-              <h3>What was tested</h3>
-              <p>Whether grouping players by social fit changes how often they come back.</p>
-            </div>
-            <div>
-              <h3>What was measured</h3>
-              <p>Return behavior of players placed by the social matchmaker.</p>
-            </div>
-            <div>
-              <h3>What it doesn’t claim</h3>
-              <p>Why players returned, or that the result holds in every game or genre.</p>
-            </div>
+        <div class="chapter__body">
+          <div class="prose">
+            <h2 id="product-title">A full minigame server, not a lab.</h2>
+            <p>
+              For the experiment to mean anything, players had to want to be there. Circuit was a complete
+              minigame network: a hand-built lobby, around 20 custom games, progression, pets, a battlepass and
+              voice chat, built on about 20,000 lines of custom code. A session looked like this.
+            </p>
           </div>
+
+          <ol class="loop">
+            <li class="loop__step">
+              <img src="/media/clips/lobby-builds.jpg" alt="A large stone castle on an orange and brown terrain, part of the Circuit spawn." width="960" height="540" loading="lazy">
+              <div>
+                <h3>Arrive in the lobby</h3>
+                <p>Players spawned into a hand-built hub of themed builds, the starting point for every game.</p>
+              </div>
+            </li>
+            <li class="loop__step">
+              <img src="/media/clips/voting-menu.jpg" alt="The Circuit voting menu, an inventory grid of minigame icons with a tooltip showing rating and player count." width="960" height="540" loading="lazy">
+              <div>
+                <h3>Vote on the next game</h3>
+                <p>
+                  A voting menu listed the games on offer. Hovering one showed its average star rating, your own
+                  rating and how many players had already voted for it, so groups chose together what to play.
+                </p>
+              </div>
+            </li>
+            <li class="loop__step">
+              <img src="/media/clips/powers-of-fortune.jpg" alt="Powers of Fortune gameplay with the on-screen title Snowball Fighter, Super knockback." width="960" height="540" loading="lazy">
+              <div>
+                <h3>Play a round</h3>
+                <p>
+                  The games were all custom. In Powers of Fortune everyone gets a new power every 20 seconds and
+                  the last player alive wins. In the Random Kits round in the footage, twelve players share an
+                  arena with three lives each.
+                  Others included Pillar of Chaos, Team Platform and a multi-stage boss fight against the
+                  Corrupted Evoker.
+                </p>
+              </div>
+            </li>
+            <li class="loop__step">
+              <img src="/media/clips/pet-hatch-jan14.jpg" alt="A legendary camel pet hatching, with the label Goldboost plus 44 percent." width="960" height="540" loading="lazy">
+              <div>
+                <h3>Progress between rounds</h3>
+                <p>
+                  Players carried a level and XP bar, a 150-level battlepass and a coin balance. Coins went into
+                  pets, which players hatched, named and upgraded, and which carried perks such as a gold boost.
+                </p>
+              </div>
+            </li>
+            <li class="loop__step">
+              <img src="/media/clips/voice-chat-jan24.jpg" alt="The Circuit browser audio client with an audio volume slider and a Proximity Voice Chat panel." width="960" height="540" loading="lazy">
+              <div>
+                <h3>Talk to the people near you</h3>
+                <p>
+                  A Circuit-branded browser client carried in-game music and proximity voice chat, so players
+                  within 45 blocks of each other could talk, with a mute key for privacy.
+                </p>
+              </div>
+            </li>
+          </ol>
+
+          <div class="prose">
+            <p class="loop__coda">
+              Around that loop sat the experiment: deciding who ended up playing together. The games,
+              rewards and voice chat gave players reasons to show up. The matchmaker was there to test whether
+              the people they met would make them stay.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="chapter chapter--dark" id="footage" aria-labelledby="footage-title">
+        <div class="chapter__label">
+          <span class="chapter__num">03</span>
+          <span>Footage</span>
+        </div>
+        <div class="chapter__body">
+          <h2 id="footage-title" class="prose-heading">From the server.</h2>
+          <p class="footage__intro">
+            Clips recorded on Circuit while it was live: minigames, menus, pets and the voice client. Each has its
+            original sound; press play to watch.
+          </p>
+
+          <div class="clips" data-clips-src="/media/clips.json" hidden>
+            <ul class="clips__grid"></ul>
+          </div>
+          <noscript>
+            <p class="footage__intro">The clip gallery needs JavaScript. The files are in <a href="/media/clips.json">/media/clips.json</a>.</p>
+          </noscript>
+
+          <figure class="theory-video">
+            <div class="theory-video__head">
+              <h3>Background: the theory</h3>
+              <p class="theory-video__flag">AI-generated explainer, not server footage</p>
+            </div>
+            <video controls preload="none" playsinline poster="/media/explainer-poster.jpg" width="1280" height="720">
+              <source src="/media/circuit-explainer.mp4" type="video/mp4">
+              <track kind="captions" src="/media/circuit-explainer.en.vtt" srclang="en" label="English" default>
+              <a href="/media/circuit-explainer.mp4">Download the explainer video (MP4)</a>
+            </video>
+            <figcaption>
+              “Why we quit games we love” covers the retention argument behind Circuit: reward loops, social
+              loops and the matchmaking principles below. The narration and slides were generated with NotebookLM.
+              7 min 38 s, captioned.
+            </figcaption>
+          </figure>
         </div>
       </section>
 
       <section class="chapter" id="matchmaking" aria-labelledby="matchmaking-title">
         <div class="chapter__label">
-          <span class="chapter__num">03</span>
+          <span class="chapter__num">04</span>
           <span>How matchmaking worked</span>
         </div>
         <div class="chapter__body">
           <div class="prose">
             <h2 id="matchmaking-title">Same players, a different question.</h2>
             <p>
-              A conventional matchmaker asks whether a group of players is evenly matched. Circuit asked
-              whether a group would get along. Skill still mattered, since a hopeless match isn’t fun for anyone,
-              but it stopped being the only thing the matchmaker optimized for.
+              A conventional matchmaker asks whether a group of players is evenly matched. Circuit asked whether
+              a group would get along. Skill still mattered, since a hopeless match isn’t fun for anyone, but it
+              stopped being the only thing the matchmaker optimized for.
             </p>
           </div>
 
@@ -239,40 +294,164 @@
             </table>
           </div>
 
-          <h3 class="subhead">Three design principles</h3>
-          <ol class="principles">
+          <div class="principles-wrap">
+            <div>
+              <h3 class="subhead">Three design principles</h3>
+              <ol class="principles">
+                <li>
+                  <h4>Fast first, then fit.</h4>
+                  <p>
+                    A new player needs a game right away, so early matches favor speed. As a player returns, the
+                    matchmaker can afford to care less about queue time and more about who they’re grouped with.
+                  </p>
+                  <div class="shift" aria-hidden="true">
+                    <span class="shift__bar"></span>
+                    <span class="shift__labels"><span>First session: speed and skill</span><span>Returning player: social fit</span></span>
+                  </div>
+                </li>
+                <li>
+                  <h4>Keep good groups together.</h4>
+                  <p>
+                    Familiarity builds friendship. When a group plays well together, putting the same people back
+                    in a game is worth more than a marginally better-balanced lobby of strangers.
+                  </p>
+                </li>
+                <li>
+                  <h4>Shared struggle beats perfect balance.</h4>
+                  <p>
+                    Easy wins are forgettable. Teams bond when they have to work together to get through something
+                    hard, like a boss with several stages, so a good match isn’t always a perfectly fair one.
+                  </p>
+                </li>
+              </ol>
+            </div>
+
+            <figure class="diagram">
+              <svg class="lobby-map" viewBox="0 0 480 400" role="img" aria-labelledby="lobby-title lobby-desc">
+                <title id="lobby-title">Diagram of players grouped by fit</title>
+                <desc id="lobby-desc">A block grid with twelve player markers. Red wires connect them into three groups of four. Each group mixes players from different parts of the map rather than the nearest neighbours.</desc>
+                <defs>
+                  <pattern id="grid" width="16" height="16" patternUnits="userSpaceOnUse">
+                    <path d="M16 0H0V16" fill="none" class="lobby-map__gridline"/>
+                  </pattern>
+                  <g id="player">
+                    <rect width="32" height="32"/>
+                    <rect class="lobby-map__eye" x="7" y="11" width="6" height="6"/>
+                    <rect class="lobby-map__eye" x="19" y="11" width="6" height="6"/>
+                  </g>
+                </defs>
+                <rect width="480" height="400" fill="url(#grid)"/>
+                <g class="lobby-map__terrain">
+                  <rect x="0" y="224" width="16" height="16"/><rect x="16" y="224" width="16" height="16"/><rect x="16" y="240" width="16" height="16"/>
+                  <rect x="448" y="256" width="16" height="16"/><rect x="464" y="256" width="16" height="16"/><rect x="448" y="272" width="16" height="16"/>
+                  <rect x="224" y="16" width="16" height="16"/><rect x="240" y="16" width="16" height="16"/>
+                  <rect x="32" y="352" width="16" height="16"/><rect x="48" y="352" width="16" height="16"/><rect x="48" y="368" width="16" height="16"/>
+                  <rect x="416" y="352" width="16" height="16"/>
+                  <rect x="224" y="176" width="16" height="16"/><rect x="240" y="192" width="16" height="16"/>
+                </g>
+                <g class="lobby-map__wires">
+                  <path d="M64 64H112V112M176 56H112M64 176H112V112M192 184H112V112"/>
+                  <path d="M288 48H336V96M416 56H336M280 160H336V96M408 152H336V96"/>
+                  <path d="M168 280H240V304M312 264H240M192 352H240V304M336 344H240V304"/>
+                </g>
+                <g class="lobby-map__hubs">
+                  <rect x="106" y="106" width="12" height="12"/>
+                  <rect x="330" y="90" width="12" height="12"/>
+                  <rect x="234" y="298" width="12" height="12"/>
+                </g>
+                <g class="lobby-map__players">
+                  <use href="#player" x="48" y="48" class="p1"/>
+                  <use href="#player" x="160" y="40" class="p2"/>
+                  <use href="#player" x="48" y="160" class="p3"/>
+                  <use href="#player" x="176" y="168" class="p1"/>
+                  <use href="#player" x="272" y="32" class="p3"/>
+                  <use href="#player" x="400" y="40" class="p1"/>
+                  <use href="#player" x="264" y="144" class="p2"/>
+                  <use href="#player" x="392" y="136" class="p3"/>
+                  <use href="#player" x="152" y="264" class="p2"/>
+                  <use href="#player" x="296" y="248" class="p1"/>
+                  <use href="#player" x="176" y="336" class="p3"/>
+                  <use href="#player" x="320" y="328" class="p2"/>
+                </g>
+              </svg>
+              <figcaption>Diagram, not gameplay: twelve players wired into three teams by fit rather than by rating.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="chapter" id="growth" aria-labelledby="growth-title">
+        <div class="chapter__label">
+          <span class="chapter__num">05</span>
+          <span>Growth</span>
+        </div>
+        <div class="chapter__body">
+          <div class="prose">
+            <h2 id="growth-title">From zero players on Minehut to 200,000.</h2>
+            <p>
+              Circuit launched on Minehut, a Minecraft server host with a public list of servers that players
+              browse to find somewhere to play. Austin tracked weekly unique users (players who joined at least once in a week)
+              in weekly progress reports. The first stretch looked like this.
+            </p>
+          </div>
+
+          <figure class="ladder">
+            <figcaption class="ladder__title">Weekly unique users in the early weeks</figcaption>
+            <ol class="ladder__rows">
+              <li>
+                <span class="ladder__when">Start</span>
+                <span class="ladder__track"><span class="ladder__bar ladder__bar--0"></span></span>
+                <span class="ladder__value">0</span>
+              </li>
+              <li>
+                <span class="ladder__when">Nov 18–22</span>
+                <span class="ladder__track"><span class="ladder__bar ladder__bar--700"></span></span>
+                <span class="ladder__value">700</span>
+              </li>
+              <li>
+                <span class="ladder__when">Nov 24–Dec 1</span>
+                <span class="ladder__track"><span class="ladder__bar ladder__bar--1005"></span></span>
+                <span class="ladder__value">1,005</span>
+              </li>
+              <li>
+                <span class="ladder__when">Week 9</span>
+                <span class="ladder__track"><span class="ladder__bar ladder__bar--2000"></span></span>
+                <span class="ladder__value">2,000+</span>
+              </li>
+            </ol>
+          </figure>
+
+          <ul class="milestones">
             <li>
-              <h4>Fast first, then fit.</h4>
-              <p>
-                A new player needs a game right away, so early matches favor speed. As a player returns, the
-                matchmaker can afford to care less about queue time and more about who they’re grouped with.
-              </p>
-              <div class="shift" aria-hidden="true">
-                <span class="shift__bar"></span>
-                <span class="shift__labels"><span>First session: speed and skill</span><span>Returning player: social fit</span></span>
-              </div>
+              <h3>Top of the Minehut charts</h3>
+              <p>In the week it passed 1,000 weekly users, Circuit topped the Minehut charts with 22 players online at once.</p>
             </li>
             <li>
-              <h4>Keep good groups together.</h4>
-              <p>
-                Familiarity builds friendship. When a group plays well together, putting the same people back in
-                a game is worth more than finding a marginally better-balanced lobby of strangers.
-              </p>
+              <h3>A community off the server</h3>
+              <p>The Circuit Discord grew from about 100 members to over 300 over the same stretch.</p>
             </li>
             <li>
-              <h4>Shared struggle beats perfect balance.</h4>
-              <p>
-                Easy wins are forgettable. Teams bond when they have to work together to get through something
-                hard, so a good match isn’t always a perfectly fair one.
-              </p>
+              <h3>A streamer on the server</h3>
+              <p>A streamer with more than 16,000 followers appeared on Circuit and spoke about its team dynamics.</p>
             </li>
-          </ol>
+            <li>
+              <h3>Top 1% of servers</h3>
+              <p>By the Week 9 milestone, Circuit ranked in the top 1% of Minecraft servers and had logged 20,000 hours of player time.</p>
+            </li>
+          </ul>
+
+          <div class="prose">
+            <p>
+              Weekly users measure how many people show up in a given week. Over the life of the server, Circuit
+              reached 200,000 players in total.
+            </p>
+          </div>
         </div>
       </section>
 
       <section class="chapter" id="results" aria-labelledby="results-title">
         <div class="chapter__label">
-          <span class="chapter__num">04</span>
+          <span class="chapter__num">06</span>
           <span>Results</span>
         </div>
         <div class="chapter__body">
@@ -280,63 +459,43 @@
           <div class="figures">
             <div class="figure-stat">
               <p class="figure-stat__value">200,000</p>
-              <p class="figure-stat__label">players on the server</p>
+              <p class="figure-stat__label">players over the life of the server</p>
             </div>
             <div class="figure-stat figure-stat--accent">
               <p class="figure-stat__value"><span class="figure-stat__approx">about</span> <span class="figure-stat__frac">⅓</span></p>
               <p class="figure-stat__label">more likely to return when matched by social fit</p>
             </div>
             <div class="figure-stat">
-              <p class="figure-stat__value figure-stat__value--word">Shut down</p>
-              <p class="figure-stat__label">the server is no longer running</p>
+              <p class="figure-stat__value">20</p>
+              <p class="figure-stat__label">custom minigames built and run</p>
             </div>
           </div>
           <div class="prose">
             <p>
-              Circuit grew to 200,000 players, enough to see the idea work outside a slide deck. Players placed by the social matchmaker were roughly one-third more likely
-              to come back.
+              Circuit grew to 200,000 players, enough to see the idea work outside a slide deck. Players placed by
+              the social matchmaker were roughly one-third more likely to come back.
             </p>
             <p class="note">
-              <strong>How to read this.</strong> The return-rate figure comes from the server’s own player data.
-              It isn’t a peer-reviewed study, and it’s one metric: it shows that matched players came back more,
-              not exactly why. No other figures are reported here.
+              <strong>How to read this.</strong> The return-rate figure is Austin’s reading of the server’s player
+              data. It isn’t peer-reviewed, and it shows that matched players came back more, not exactly why.
             </p>
           </div>
-        </div>
-      </section>
 
-      <section class="chapter chapter--dark" id="media" aria-labelledby="media-title">
-        <div class="chapter__label">
-          <span class="chapter__num">05</span>
-          <span>Media</span>
-        </div>
-        <div class="chapter__body">
-          <h2 id="media-title" class="prose-heading">Footage and background.</h2>
-
-          <figure class="feature-video">
-            <video controls preload="none" playsinline poster="/media/explainer-poster.jpg" width="1280" height="720">
-              <source src="/media/circuit-explainer.mp4" type="video/mp4">
-              <track kind="captions" src="/media/circuit-explainer.en.vtt" srclang="en" label="English" default>
-              <a href="/media/circuit-explainer.mp4">Download the explainer video (MP4)</a>
-            </video>
-            <figcaption>
-              <span class="feature-video__title">Why we quit games we love</span>
-              An explainer on the retention theory behind Circuit: reward loops, social loops, and the matchmaking
-              principles above. 7 min 38 s, captioned. The narration and slides are AI-generated and cover the
-              theory; they are not server footage.
-            </figcaption>
-          </figure>
-
-          <div class="clips" data-clips-src="/media/clips.json" hidden>
-            <h3 class="subhead">From the server</h3>
-            <ul class="clips__grid"></ul>
-          </div>
+          <aside class="side-study" aria-labelledby="side-study-title">
+            <p class="side-study__flag">Separate test, not the Minecraft server data</p>
+            <h3 id="side-study-title">The Circuit algorithm, tested on its own</h3>
+            <p>
+              A separate test of the Circuit algorithm placed participants in groups of six for a two-hour
+              session. After 30 days, 83% of participants reported they were still talking online. That is a different study with a different group of people, and it isn’t part of the
+              200,000-player server figures above.
+            </p>
+          </aside>
         </div>
       </section>
 
       <section class="chapter" id="lessons" aria-labelledby="lessons-title">
         <div class="chapter__label">
-          <span class="chapter__num">06</span>
+          <span class="chapter__num">07</span>
           <span>Lessons and status</span>
         </div>
         <div class="chapter__body">
@@ -349,16 +508,16 @@
               <p>Skill balance and social fit are different variables. Optimizing only for the first leaves the second to chance.</p>
             </li>
             <li>
+              <h3>Content gets players in; people are the reason to stay.</h3>
+              <p>Twenty minigames, pets and a battlepass gave players reasons to try Circuit. The bet was that who they met there would decide whether they came back.</p>
+            </li>
+            <li>
               <h3>The first match and the tenth need different goals.</h3>
               <p>New players need a game now. Returning players can wait a little longer for a better group.</p>
             </li>
             <li>
-              <h3>Fair isn’t the same as good.</h3>
-              <p>A perfectly balanced lobby of strangers is easy to forget. A team that got through something hard together is not.</p>
-            </li>
-            <li>
               <h3>A live test beats a hypothetical.</h3>
-              <p>Running a real server turned an opinion about matchmaking into behavior that could be observed.</p>
+              <p>Running a real server, from zero players on Minehut to 200,000, turned an opinion about matchmaking into behavior that could be observed.</p>
             </li>
           </ol>
 
@@ -366,10 +525,10 @@
             <h3 class="subhead">Why it matters</h3>
             <p>
               Games spend heavily on new content to keep players around, and content runs out. A community
-              doesn’t: the people you play with are content that keeps renewing itself. If matchmaking can
-              help form those communities on purpose, retention stops depending on a bigger update each season.
-              The same idea reaches beyond games: in the Rat Park experiments of the late 1970s, rats given
-              company and space to play took far less morphine than rats kept alone.
+              doesn’t: the people you play with are content that keeps renewing itself. If matchmaking can help
+              form those communities on purpose, retention stops depending on a bigger update each season. The
+              same idea reaches beyond games: in the Rat Park experiments of the late 1970s, rats given company
+              and space to play took far less morphine than rats kept alone.
             </p>
             <p>
               It also raises a harder question that Circuit leaves open: if a system can choose your teammates
@@ -380,10 +539,15 @@
           <aside class="status" aria-labelledby="status-title">
             <h3 id="status-title">Current status</h3>
             <p>
-              Circuit is shut down. There is no server to join, no signup and no product. This site is a
-              research archive documenting the experiment and what it found.
+              Circuit is shut down. There is no server to join, no signup and no product. This site is an archive
+              of the experiment and what it found.
             </p>
           </aside>
+
+          <p class="sources">
+            Sources: player and growth figures come from Austin’s weekly progress reports and project decks.
+            The 200,000-player figure is confirmed by Austin. None of the figures have been independently audited.
+          </p>
         </div>
       </section>
     </article>
