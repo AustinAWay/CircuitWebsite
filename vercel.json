@@ -1,16 +1,37 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "run_web.py",
-      "use": "@vercel/python"
-    }
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "outputDirectory": "public",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/circuit", "destination": "/", "permanent": false },
+    { "source": "/circuit/:path*", "destination": "/", "permanent": false },
+    { "source": "/signup", "destination": "/", "permanent": false },
+    { "source": "/game/:path*", "destination": "/", "permanent": false },
+    { "source": "/reveal", "destination": "/", "permanent": false },
+    { "source": "/complete", "destination": "/", "permanent": false },
+    { "source": "/terms", "destination": "/", "permanent": false },
+    { "source": "/privacy", "destination": "/", "permanent": false },
+    { "source": "/test", "destination": "/", "permanent": false },
+    { "source": "/static/circuitweb/assets/CircuitExplan.mp4", "destination": "/media/circuit-explainer.mp4", "permanent": false }
   ],
-  "routes": [
+  "headers": [
     {
-      "src": "/(.*)",
-      "dest": "run_web.py"
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' https: data:; media-src 'self' https:; frame-src https://www.youtube-nocookie.com https://player.vimeo.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'"
+        }
+      ]
+    },
+    {
+      "source": "/assets/fonts/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
     }
   ]
 }
-
