@@ -1109,6 +1109,53 @@ a:hover {
   line-height: 1.5;
 }
 
+/* What happened next */
+
+.arc {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem;
+  max-width: 60rem;
+  margin: 2.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--sans);
+}
+
+.arc li {
+  padding-top: 1rem;
+  border-top: 3px solid var(--ink-3);
+}
+
+.arc li.arc__now {
+  border-top-color: var(--redstone);
+}
+
+.arc__step {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: var(--ink-3);
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+}
+
+.arc__now .arc__step {
+  color: var(--redstone);
+}
+
+.arc h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.arc p {
+  margin-top: 0.3rem;
+  color: var(--ink-2);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
 /* Separate study and sources */
 
 .side-study {
@@ -1171,6 +1218,10 @@ a:hover {
 /* Responsive */
 
 @media (max-width: 1100px) {
+  .arc {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .principles-wrap {
     grid-template-columns: 1fr;
     gap: 0;
@@ -1262,8 +1313,13 @@ a:hover {
   }
 
   .chapter--dark .clips__grid,
-  .milestones {
+  .milestones,
+  .arc {
     grid-template-columns: 1fr;
+  }
+
+  .arc {
+    gap: 1.1rem;
   }
 
   .ladder__rows li {
