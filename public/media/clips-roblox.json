@@ -1,3 +1,47 @@
 {
-  "clips": []
+  "clips": [
+    {
+      "title": "Role wheel",
+      "feature": true,
+      "type": "file",
+      "src": "/media/clips-roblox/roblox-role-wheel.mp4",
+      "poster": "/media/clips-roblox/roblox-role-wheel.jpg"
+    },
+    {
+      "title": "Interior",
+      "type": "file",
+      "src": "/media/clips-roblox/roblox-interior-01.mp4",
+      "poster": "/media/clips-roblox/roblox-interior-01.jpg"
+    },
+    {
+      "title": "Exterior",
+      "type": "file",
+      "src": "/media/clips-roblox/roblox-exterior-01.mp4",
+      "poster": "/media/clips-roblox/roblox-exterior-01.jpg"
+    },
+    {
+      "title": "Landscape",
+      "type": "file",
+      "src": "/media/clips-roblox/roblox-landscape-01.mp4",
+      "poster": "/media/clips-roblox/roblox-landscape-01.jpg"
+    },
+    {
+      "title": "Grounds",
+      "type": "file",
+      "src": "/media/clips-roblox/roblox-grounds-01.mp4",
+      "poster": "/media/clips-roblox/roblox-grounds-01.jpg"
+    },
+    {
+      "title": "Studio foyer",
+      "type": "file",
+      "src": "/media/clips-roblox/roblox-studio-foyer-01.mp4",
+      "poster": "/media/clips-roblox/roblox-studio-foyer-01.jpg"
+    },
+    {
+      "title": "Studio foyer 2",
+      "type": "file",
+      "src": "/media/clips-roblox/roblox-studio-foyer-02.mp4",
+      "poster": "/media/clips-roblox/roblox-studio-foyer-02.jpg"
+    }
+  ]
 }
