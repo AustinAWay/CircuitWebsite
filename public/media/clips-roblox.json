@@ -1,6 +1,13 @@
 {
   "clips": [
     {
+      "title": "Trailer",
+      "feature": true,
+      "type": "file",
+      "src": "/media/clips-roblox/roblox-trailer.mp4",
+      "poster": "/media/clips-roblox/roblox-trailer.jpg"
+    },
+    {
       "title": "Role wheel",
       "feature": true,
       "type": "file",
