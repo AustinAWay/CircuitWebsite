@@ -14,7 +14,7 @@
     { "source": "/terms", "destination": "/", "permanent": false },
     { "source": "/privacy", "destination": "/", "permanent": false },
     { "source": "/test", "destination": "/", "permanent": false },
-    { "source": "/static/circuitweb/assets/CircuitExplan.mp4", "destination": "/media/circuit-explainer.mp4", "permanent": false }
+    { "source": "/static/:path*", "destination": "/", "permanent": false }
   ],
   "headers": [
     {

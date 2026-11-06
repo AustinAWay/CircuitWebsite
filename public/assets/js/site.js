@@ -1,35 +1,6 @@
 (function () {
   "use strict";
 
-  function highlightCurrentSection() {
-    var links = Array.prototype.slice.call(document.querySelectorAll(".toc a[href^='#']"));
-    if (!links.length || !("IntersectionObserver" in window)) return;
-
-    var byId = {};
-    links.forEach(function (link) {
-      byId[link.getAttribute("href").slice(1)] = link;
-    });
-
-    var observer = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          links.forEach(function (link) {
-            link.removeAttribute("aria-current");
-          });
-          var active = byId[entry.target.id];
-          if (active) active.setAttribute("aria-current", "true");
-        });
-      },
-      { rootMargin: "-45% 0px -50% 0px" }
-    );
-
-    Object.keys(byId).forEach(function (id) {
-      var section = document.getElementById(id);
-      if (section) observer.observe(section);
-    });
-  }
-
   function el(tag, attrs, text) {
     var node = document.createElement(tag);
     Object.keys(attrs || {}).forEach(function (key) {
@@ -68,95 +39,84 @@
     }
     var src = safeUrl(clip.src || "");
     if (!src) return null;
-    var video = el("video", { controls: "", preload: "none", playsinline: "" });
+    var video = el("video", { controls: "", preload: "metadata", playsinline: "", "aria-label": clip.title });
     var poster = clip.poster && safeUrl(clip.poster);
     if (poster) video.setAttribute("poster", poster);
     video.appendChild(el("source", { src: src, type: clip.mime || "video/mp4" }));
-    var captions = clip.captions && safeUrl(clip.captions);
-    if (captions) {
-      video.appendChild(el("track", { kind: "captions", src: captions, srclang: "en", label: "English" }));
-    }
     return video;
   }
 
-  function renderClips(container, clips) {
-    var list = container.querySelector(".clips__grid");
-    var rendered = 0;
-
+  function renderDeck(section, clips) {
+    var list = section.querySelector(".deck__grid");
     clips.forEach(function (clip) {
       if (!clip || !clip.title) return;
       var media = embedFor(clip);
       if (!media) return;
 
-      var item = el("li", clip.feature ? { class: "clips__item--feature" } : {});
+      var item = el("li", clip.feature ? { class: "deck__item--feature" } : {});
       var figure = el("figure");
-      var frame = el("div", { class: "clips__frame" });
+      var frame = el("div", { class: "deck__frame" });
       frame.appendChild(media);
       figure.appendChild(frame);
-
-      var caption = el("figcaption");
-      var heading = el("span", { class: "clips__title" }, clip.title);
-      if (clip.duration) heading.appendChild(el("span", { class: "clips__duration" }, clip.duration));
-      caption.appendChild(heading);
-      if (clip.caption) caption.appendChild(document.createTextNode(clip.caption));
-      figure.appendChild(caption);
-
+      figure.appendChild(el("figcaption", { class: "deck__title" }, clip.title));
       item.appendChild(figure);
       list.appendChild(item);
-      rendered += 1;
     });
-
-    if (rendered) container.hidden = false;
   }
 
-  function loadClips() {
-    var container = document.querySelector("[data-clips-src]");
-    if (!container || !window.fetch) return;
-
-    fetch(container.getAttribute("data-clips-src"), { headers: { Accept: "application/json" } })
-      .then(function (response) {
-        return response.ok ? response.json() : { clips: [] };
-      })
-      .then(function (data) {
-        if (data && Array.isArray(data.clips) && data.clips.length) renderClips(container, data.clips);
-      })
-      .catch(function () {});
-  }
-
-  function setupReel() {
-    var video = document.querySelector(".reel__video");
-    var toggle = document.querySelector(".reel__toggle");
-    if (!video || !toggle) return;
-
-    var label = toggle.querySelector(".reel__toggle-label");
-    var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    function sync() {
-      var playing = !video.paused;
-      toggle.setAttribute("aria-pressed", playing ? "true" : "false");
-      label.textContent = playing ? "Pause footage" : "Play footage";
-    }
-
-    toggle.addEventListener("click", function () {
-      if (video.paused) {
-        var attempt = video.play();
-        if (attempt && attempt.catch) attempt.catch(function () {});
-      } else {
-        video.pause();
-      }
+  function loadDecks() {
+    var sections = document.querySelectorAll("[data-clips-src]");
+    Array.prototype.forEach.call(sections, function (section) {
+      fetch(section.getAttribute("data-clips-src"), { headers: { Accept: "application/json" } })
+        .then(function (response) {
+          return response.ok ? response.json() : { clips: [] };
+        })
+        .then(function (data) {
+          if (data && Array.isArray(data.clips)) renderDeck(section, data.clips);
+        })
+        .catch(function () {});
     });
-    video.addEventListener("play", sync);
-    video.addEventListener("pause", sync);
-    toggle.hidden = false;
-
-    if (!reduceMotion) {
-      var start = video.play();
-      if (start && start.catch) start.catch(sync);
-    }
-    sync();
   }
 
+  function pauseOthersOnPlay() {
+    document.addEventListener(
+      "play",
+      function (event) {
+        Array.prototype.forEach.call(document.querySelectorAll("video"), function (video) {
+          if (video !== event.target && !video.paused) video.pause();
+        });
+      },
+      true
+    );
+  }
+
+  function highlightCurrentSection() {
+    var links = Array.prototype.slice.call(document.querySelectorAll(".bar__nav a[href^='#']"));
+    if (!links.length || !("IntersectionObserver" in window)) return;
+
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          links.forEach(function (link) {
+            if (link.getAttribute("href") === "#" + entry.target.id) {
+              link.setAttribute("aria-current", "true");
+            } else {
+              link.removeAttribute("aria-current");
+            }
+          });
+        });
+      },
+      { rootMargin: "-40% 0px -55% 0px" }
+    );
+
+    links.forEach(function (link) {
+      var section = document.getElementById(link.getAttribute("href").slice(1));
+      if (section) observer.observe(section);
+    });
+  }
+
+  loadDecks();
+  pauseOthersOnPlay();
   highlightCurrentSection();
-  setupReel();
-  loadClips();
 })();
